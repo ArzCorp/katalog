@@ -1,0 +1,58 @@
+export const PRODUCTS = [
+	{
+		name: 'Cilindro de sandía',
+		id: 1,
+		description: 'Excelente calidad',
+		price: 180,
+		image: 'https://i.ibb.co/F6Q49kz/sandia.jpg',
+	},
+	{
+		name: 'Cilindro de cámara',
+		id: 2,
+		description: 'Excelente calidad',
+		price: 180,
+		image: 'https://i.ibb.co/vq8QyF9/camara.jpg',
+	},
+	{
+		name: 'Kit de cuchillos',
+		id: 3,
+		description: 'Hermosísimos',
+		price: 280,
+		image: 'https://i.ibb.co/WK3rrxx/cuchillos.jpg',
+	},
+	{
+		name: 'Kit de cuchillos',
+		id: 4,
+		description: 'Hermosísimos',
+		price: 160,
+		image: 'https://i.ibb.co/ydQNzJv/cuchillos-2.jpg',
+	},
+	{
+		name: 'Cilindro 750ml',
+		id: 5,
+		description: 'Hermoso',
+		price: 180,
+		image: 'https://i.ibb.co/2S8mrsQ/cilindro.jpg',
+	},
+	{
+		name: 'Botella',
+		id: 6,
+		description: 'Capacidad 1L',
+		price: 135,
+		image: 'https://i.ibb.co/RNmrP3r/botella-1.jpg',
+	},
+	{
+		name: 'Cilindro dona',
+		id: 7,
+		description: 'Capacidad 500ml',
+		price: 180,
+		image: 'https://i.ibb.co/zhPWWKq/cilindro-dona.jpg',
+	},
+	{
+		name: 'Cilindro paleta',
+		id: 8,
+		description: 'Color a elegir',
+		price: 175,
+		image: 'https://i.ibb.co/j8j2kWQ/cilindro-paleta.jpg',
+	},
+]
