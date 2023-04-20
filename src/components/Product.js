@@ -6,8 +6,12 @@ export default function Product({
 }) {
 	return (
 		<article className="h-full">
-			<picture className="mb-2 flex items-center min-h-[208px] max-h-[208px]">
-				<img src={image} alt={`imagen de producto - ${name}`} />
+			<picture className="mb-2 flex items-center h-[208px]">
+				<img
+					className="h-[208px] object-contain mx-auto"
+					src={image}
+					alt={`imagen de producto - ${name}`}
+				/>
 			</picture>
 			<main>
 				<h2 className="font-bold mb-1">{name}</h2>
