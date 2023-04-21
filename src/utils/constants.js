@@ -55,4 +55,18 @@ export const PRODUCTS = [
 		price: 175,
 		image: 'https://i.ibb.co/j8j2kWQ/cilindro-paleta.jpg',
 	},
+	{
+		name: 'Kit cilindro',
+		id: 7,
+		description: 'Tres cilindros diferentes colores',
+		price: 230,
+		image: 'https://i.ibb.co/hgJYd4f/kitcilindro.jpg',
+	},
+	{
+		name: 'Cilindro de paletita',
+		id: 8,
+		description: 'Hermoso',
+		price: 180,
+		image: 'https://i.ibb.co/RbKvb5g/cilindro-paletita.jpg',
+	},
 ]
