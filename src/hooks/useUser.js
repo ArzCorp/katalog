@@ -75,7 +75,7 @@ export const useUser = () => {
 		if (window) {
 			try {
 				const user = window.localStorage.getItem('user')
-				setUser(JSON.parse(user))
+				setUser(JSON.parse(user || {}))
 			} catch (error) {
 				setError(error.message)
 			}

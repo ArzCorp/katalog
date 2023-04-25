@@ -4,7 +4,6 @@ import Product from '@/components/Product'
 import ProductsList from '@/components/ProductsList'
 import { useProducts } from '@/hooks/useProducts'
 import { useUser } from '@/hooks/useUser'
-import { PRODUCTS } from '@/utils/constants'
 import { useRouter } from 'next/router'
 
 export default function UserCatalogPage() {
@@ -18,7 +17,7 @@ export default function UserCatalogPage() {
 		<Layout title={`${user.catalog_name} | Productos`}>
 			{products.length > 0 ? (
 				<ProductsList>
-					{PRODUCTS.map((product) => (
+					{products.map((product) => (
 						<Product key={product.id} {...product} />
 					))}
 				</ProductsList>
