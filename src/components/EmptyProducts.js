@@ -1,8 +1,11 @@
 import useTag from '@/hooks/useTag'
 import Button from './Button'
 import { useRouter } from 'next/router'
+import { useUser } from '@/hooks/useUser'
+import { MESSAGES } from '@/utils/constants'
 
 export default function EmptyProducts() {
+	const { user } = useUser()
 	const { tag } = useTag('#header')
 	const { push } = useRouter()
 
@@ -17,7 +20,9 @@ export default function EmptyProducts() {
 		>
 			<div>
 				<h1 className="text-center text-pink-600 font-extrabold mb-2">
-					Aún no tienes productos en tu catálogo.
+					{user.id
+						? MESSAGES.REGISTER_USER_EMPTY_PRODUCTS
+						: MESSAGES.USER_EMPTY_PRODUCTS}
 				</h1>
 				<picture>
 					<img
@@ -27,7 +32,9 @@ export default function EmptyProducts() {
 					/>
 				</picture>
 				<div className="flex items-center justify-center">
-					<Button onClick={moveToAddProduct}>Añadir producto</Button>
+					{user.id ? (
+						<Button onClick={moveToAddProduct}>Añadir producto</Button>
+					) : null}
 				</div>
 			</div>
 		</section>

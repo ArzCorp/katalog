@@ -21,6 +21,11 @@ export const EVENTS = Object.freeze({
 	RESET_UPLOAD_IMAGE: 'reset-upload-image-event',
 })
 
+export const MESSAGES = {
+	REGISTER_USER_EMPTY_PRODUCTS: 'Aún no tienes productos en tu catálogo.',
+	USER_EMPTY_PRODUCTS: 'Aún no han agregado productos en este catálogo.',
+}
+
 export const PRODUCTS = [
 	{
 		name: 'Cilindro de sandía',

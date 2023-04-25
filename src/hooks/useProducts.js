@@ -4,7 +4,7 @@ import { useImage } from './useImage'
 import { useUser } from './useUser'
 import { ERRORS, EMPTY_STRING } from '@/utils/constants'
 
-export const useProducts = (userId) => {
+export const useProducts = (catalogName) => {
 	const { user } = useUser()
 	const { getImageUrl } = useImage()
 	const [products, setProducts] = useState([])
@@ -37,14 +37,14 @@ export const useProducts = (userId) => {
 		}
 	}
 
-	const getProducts = async (userId) => {
+	const getProducts = async (catalogName) => {
 		try {
 			setLoading(true)
 			setError(EMPTY_STRING)
 			setSuccess(EMPTY_STRING)
 
 			const response = await request({
-				endpoint: `products/${userId}`,
+				endpoint: `products/${catalogName}`,
 				method: 'GET',
 			})
 
@@ -64,8 +64,8 @@ export const useProducts = (userId) => {
 	}
 
 	useEffect(() => {
-		if (userId) getProducts(userId)
-	}, [userId])
+		if (catalogName) getProducts(catalogName)
+	}, [catalogName])
 
 	return { loading, error, success, products, addProduct, cleanMessages }
 }
