@@ -1,3 +1,26 @@
+export const EMPTY_STRING = ''
+
+export const ENV = Object.freeze({
+	IMGBB_API_KEY: process.env.NEXT_PUBLIC_IMGBB_API_KEY,
+	BASE_API_URL: process.env.NEXT_PUBLIC_BASE_API_URL,
+})
+
+export const ADD_PRODUCT_INITIAL_VALUES = {
+	name: EMPTY_STRING,
+	price: EMPTY_STRING,
+	inventory_quantity: EMPTY_STRING,
+	description: EMPTY_STRING,
+}
+
+export const ERRORS = Object.freeze({
+	ADD_PRODUCT: 'Ocurrió un error, recarga la página e intenta nuevamente.',
+	GET_PRODUCTS: 'Ocurrió un error al obtener los productos, intenta más tarde.',
+})
+
+export const EVENTS = Object.freeze({
+	RESET_UPLOAD_IMAGE: 'reset-upload-image-event',
+})
+
 export const PRODUCTS = [
 	{
 		name: 'Cilindro de sandía',

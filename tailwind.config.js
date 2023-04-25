@@ -15,6 +15,28 @@ module.exports = {
 			fontFamily: {
 				Sedgwick: ['Sedgwick Ave Display', 'cursive'],
 			},
+			keyframes: {
+				'show-alert': {
+					'0%': {
+						opacity: 0,
+					},
+					'10%, 100%': {
+						opacity: 1,
+					},
+				},
+				'hidden-alert': {
+					'0%': {
+						opacity: 1,
+					},
+					'10%, 100%': {
+						opacity: 0,
+					},
+				},
+			},
+			animation: {
+				'show-alert': 'show-alert 8s',
+				'hidden-alert': 'hidden-alert 8s ease-in-out',
+			},
 		},
 	},
 	plugins: [],

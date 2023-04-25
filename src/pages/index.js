@@ -1,16 +1,14 @@
 import Layout from '@/components/Layout'
-import Product from '@/components/Product'
-import ProductsList from '@/components/ProductsList'
-import { PRODUCTS } from '@/utils/constants'
+import { useEffect } from 'react'
 
 export default function Home() {
+	useEffect(() => {
+		console.log('Version 🔖v1.1.0')
+	}, [])
+
 	return (
-		<Layout title="Rouss | Productos">
-			<ProductsList>
-				{PRODUCTS.map((product) => (
-					<Product key={product.id} {...product} />
-				))}
-			</ProductsList>
+		<Layout title="Productos | En venta">
+			<p>Katalog</p>
 		</Layout>
 	)
 }
