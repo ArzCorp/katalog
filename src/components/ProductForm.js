@@ -9,10 +9,19 @@ import { useRouter } from 'next/router'
 
 export default function ProductForm({ productId }) {
 	const { back } = useRouter()
-	const { loading, success, error, addProduct, cleanMessages, deleteProduct } =
-		useProducts()
+	const {
+		product,
+		loading,
+		success,
+		error,
+		addProduct,
+		cleanMessages,
+		deleteProduct,
+	} = useProducts({
+		productId,
+	})
 	const { values, errors, handleChange, handleSubmit, resetValues } = useForm({
-		initialValues: ADD_PRODUCT_INITIAL_VALUES,
+		initialValues: product || ADD_PRODUCT_INITIAL_VALUES,
 		submit: async (values) => {
 			addProduct(values, () => {
 				resetValues()
@@ -37,8 +46,15 @@ export default function ProductForm({ productId }) {
 				className="w-full max-w-[70%] mx-auto flex items-center flex-col gap-3"
 				onSubmit={handleSubmit}
 			>
-				<h1 className="text-pink-600 font-bold text-lg">Agregar producto</h1>
-				<Upload label="Agregar imagen" name="image" onChange={handleChange} />
+				<h1 className="text-pink-600 font-bold text-lg">
+					{productId ? 'Editar' : 'Agregar'} producto
+				</h1>
+				<Upload
+					img={product.image}
+					label="Agregar imagen"
+					name="image"
+					onChange={handleChange}
+				/>
 				<TextInput
 					value={values.name}
 					label="Nombre:"
