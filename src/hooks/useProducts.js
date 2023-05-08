@@ -15,8 +15,7 @@ export const useProducts = (catalogName) => {
 	const addProduct = async (productData, callback) => {
 		try {
 			setLoading(true)
-			setError(EMPTY_STRING)
-			setSuccess(EMPTY_STRING)
+			cleanMessages()
 
 			const image = await getImageUrl(productData.image)
 			if (!image) throw new Error(ERRORS.ADD_PRODUCT)
@@ -63,9 +62,31 @@ export const useProducts = (catalogName) => {
 		setSuccess(EMPTY_STRING)
 	}
 
+	const deleteProduct = async (productId, callback) => {
+		cleanMessages()
+		const response = await request({
+			endpoint: `products/${productId}`,
+			method: 'DELETE',
+		})
+
+		if (response.success) setSuccess(response.message)
+
+		setError(response.error)
+
+		if (callback) callback()
+	}
+
 	useEffect(() => {
 		if (catalogName) getProducts(catalogName)
 	}, [catalogName])
 
-	return { loading, error, success, products, addProduct, cleanMessages }
+	return {
+		loading,
+		error,
+		success,
+		products,
+		addProduct,
+		cleanMessages,
+		deleteProduct,
+	}
 }
