@@ -17,16 +17,21 @@ export default function ProductForm({ productId }) {
 		addProduct,
 		cleanMessages,
 		deleteProduct,
+		editProduct,
 	} = useProducts({
 		productId,
 	})
 	const { values, errors, handleChange, handleSubmit, resetValues } = useForm({
 		initialValues: product || ADD_PRODUCT_INITIAL_VALUES,
 		submit: async (values) => {
-			addProduct(values, () => {
-				resetValues()
-				resetUploadImage()
-			})
+			if (productId) {
+				editProduct(values)
+			} else {
+				addProduct(values, () => {
+					resetValues()
+					resetUploadImage()
+				})
+			}
 		},
 	})
 

@@ -94,6 +94,29 @@ export const useProducts = ({ catalogName, productId } = {}) => {
 		}
 	}
 
+	const editProduct = async (productData) => {
+		let image
+		if (typeof productData.image != 'string') {
+			image = await getImageUrl(productData.image)
+			if (!image) throw new Error(ERRORS.UPDATE_PRODUCT)
+		} else {
+			image = product.image
+		}
+
+		cleanMessages()
+		const response = await request({
+			body: { ...productData, image },
+			method: 'POST',
+			endpoint: 'product/update',
+		})
+
+		if (response.success) {
+			setSuccess(response.message)
+		} else {
+			setError(response.message)
+		}
+	}
+
 	useEffect(() => {
 		if (catalogName) getProducts(catalogName)
 		if (productId) getProduct(productId)
