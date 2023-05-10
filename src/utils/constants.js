@@ -28,6 +28,10 @@ export const MESSAGES = {
 	USER_EMPTY_PRODUCTS: 'Aún no han agregado productos en este catálogo.',
 }
 
+export const PAGE_URLS = Object.freeze({
+	HOME: '/',
+})
+
 export const PRODUCTS = [
 	{
 		name: 'Cilindro de sandía',
