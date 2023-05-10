@@ -1,9 +1,16 @@
 export default function Product({
 	price = 0,
+	isOwner,
 	description = 'Description here',
 	name = 'Product name here',
 	image = './example-product-image.jpeg',
 }) {
+	const { push } = useRouter()
+	const editProduct = () => {
+		if (!isOwner) return
+		push(`/productos/editar/${id}`)
+	}
+
 	return (
 		<article className="h-full text-sm">
 			<picture>

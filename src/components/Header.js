@@ -2,7 +2,7 @@ import { useUser } from '@/hooks/useUser'
 import Navbar from './Navbar'
 import { EMPTY_STRING } from '@/utils/constants'
 
-export default function Header() {
+export default function Header({ isOwner }) {
 	const { user } = useUser()
 
 	return (
@@ -13,7 +13,7 @@ export default function Header() {
 			<h1 className="font-nunito text-pink-600 font-extrabold tracking-wider text-lg leading-8">
 				Katalog - {user.catalog_name || EMPTY_STRING}
 			</h1>
-			{user.id ? <Navbar /> : null}
+			{isOwner ? <Navbar /> : null}
 		</header>
 	)
 }

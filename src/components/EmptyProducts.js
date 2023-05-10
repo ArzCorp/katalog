@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useUser } from '@/hooks/useUser'
 import { MESSAGES } from '@/utils/constants'
 
-export default function EmptyProducts() {
+export default function EmptyProducts({ isOwner }) {
 	const { user } = useUser()
 	const { tag } = useTag('#header')
 	const { push } = useRouter()
@@ -20,7 +20,7 @@ export default function EmptyProducts() {
 		>
 			<div>
 				<h1 className="text-center text-pink-600 font-extrabold mb-2">
-					{user.id
+					{isOwner
 						? MESSAGES.REGISTER_USER_EMPTY_PRODUCTS
 						: MESSAGES.USER_EMPTY_PRODUCTS}
 				</h1>
@@ -32,7 +32,7 @@ export default function EmptyProducts() {
 					/>
 				</picture>
 				<div className="flex items-center justify-center">
-					{user.id ? (
+					{isOwner ? (
 						<Button onClick={moveToAddProduct}>Añadir producto</Button>
 					) : null}
 				</div>
