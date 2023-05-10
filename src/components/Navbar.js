@@ -20,7 +20,7 @@ export default function Navbar() {
 	return (
 		<section>
 			<button onClick={toggleMenu}>
-				<FontAwesomeIcon icon={faBars} />
+				<FontAwesomeIcon className="text-pink-600" icon={faBars} />
 			</button>
 			{isOpenMenu ? (
 				<nav className="w-9/12 absolute top-0 bottom-0 right-0 min-h-screen px-3 bg-pink-50 border py-3 flex flex-col justify-between">

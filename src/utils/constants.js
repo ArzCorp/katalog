@@ -15,6 +15,8 @@ export const ADD_PRODUCT_INITIAL_VALUES = {
 export const ERRORS = Object.freeze({
 	ADD_PRODUCT: 'Ocurrió un error, recarga la página e intenta nuevamente.',
 	GET_PRODUCTS: 'Ocurrió un error al obtener los productos, intenta más tarde.',
+	UPDATE_PRODUCT:
+		'Ocurrió un error al actualizar el producto, intenta más tarde.',
 })
 
 export const EVENTS = Object.freeze({

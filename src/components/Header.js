@@ -1,5 +1,6 @@
 import { useUser } from '@/hooks/useUser'
 import Navbar from './Navbar'
+import { EMPTY_STRING } from '@/utils/constants'
 
 export default function Header() {
 	const { user } = useUser()
@@ -7,10 +8,10 @@ export default function Header() {
 	return (
 		<header
 			id="header"
-			className="flex justify-between items-center pt-1 border-b border-pink-600 relative"
+			className="flex justify-between items-center py-1 border-b border-pink-600 relative"
 		>
-			<h1 className="font-Sedgwick text-pink-600 font-bold tracking-wider text-2xl leading-8">
-				Rouss
+			<h1 className="font-nunito text-pink-600 font-extrabold tracking-wider text-lg leading-8">
+				Katalog - {user.catalog_name || EMPTY_STRING}
 			</h1>
 			{user.id ? <Navbar /> : null}
 		</header>
