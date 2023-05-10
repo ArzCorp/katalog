@@ -4,9 +4,10 @@ import { useImage } from './useImage'
 import { useUser } from './useUser'
 import { ERRORS, EMPTY_STRING } from '@/utils/constants'
 
-export const useProducts = (catalogName) => {
+export const useProducts = ({ catalogName, productId } = {}) => {
 	const { user } = useUser()
 	const { getImageUrl } = useImage()
+	const [product, setProduct] = useState({})
 	const [products, setProducts] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(false)
@@ -15,8 +16,7 @@ export const useProducts = (catalogName) => {
 	const addProduct = async (productData, callback) => {
 		try {
 			setLoading(true)
-			setError(EMPTY_STRING)
-			setSuccess(EMPTY_STRING)
+			cleanMessages()
 
 			const image = await getImageUrl(productData.image)
 			if (!image) throw new Error(ERRORS.ADD_PRODUCT)
@@ -63,9 +63,74 @@ export const useProducts = (catalogName) => {
 		setSuccess(EMPTY_STRING)
 	}
 
+	const deleteProduct = async (productId, callback) => {
+		cleanMessages()
+		const response = await request({
+			endpoint: `products/${productId}`,
+			method: 'DELETE',
+		})
+
+		if (response.success) setSuccess(response.message)
+
+		setError(response.error)
+
+		if (callback) callback()
+	}
+
+	const getProduct = async (productId) => {
+		try {
+			setError(false)
+			setSuccess(false)
+
+			const response = await request({
+				endpoint: `product/${productId}`,
+				method: 'GET',
+			})
+			if (response.success) {
+				setProduct(response.data)
+			}
+		} catch (error) {
+			setError(error.message)
+		}
+	}
+
+	const editProduct = async (productData) => {
+		let image
+		if (typeof productData.image != 'string') {
+			image = await getImageUrl(productData.image)
+			if (!image) throw new Error(ERRORS.UPDATE_PRODUCT)
+		} else {
+			image = product.image
+		}
+
+		cleanMessages()
+		const response = await request({
+			body: { ...productData, image },
+			method: 'POST',
+			endpoint: 'product/update',
+		})
+
+		if (response.success) {
+			setSuccess(response.message)
+		} else {
+			setError(response.message)
+		}
+	}
+
 	useEffect(() => {
 		if (catalogName) getProducts(catalogName)
-	}, [catalogName])
+		if (productId) getProduct(productId)
+	}, [catalogName, productId])
 
-	return { loading, error, success, products, addProduct, cleanMessages }
+	return {
+		loading,
+		error,
+		success,
+		products,
+		product,
+		addProduct,
+		editProduct,
+		cleanMessages,
+		deleteProduct,
+	}
 }

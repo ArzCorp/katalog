@@ -1,7 +1,7 @@
 import { EMPTY_STRING, EVENTS } from '@/utils/constants'
 import { useEffect, useState } from 'react'
 
-export default function Upload({ label, onChange, name }) {
+export default function Upload({ label, onChange, name, img }) {
 	const [image, setImage] = useState(EMPTY_STRING)
 	const getImageBase64 = async (e) => {
 		try {
@@ -13,6 +13,7 @@ export default function Upload({ label, onChange, name }) {
 			reader.readAsDataURL(file)
 			reader.onload = () => {
 				const base64Image = reader.result
+				console.log(base64Image)
 
 				setImage(base64Image)
 				onChange({
@@ -40,6 +41,10 @@ export default function Upload({ label, onChange, name }) {
 			document.removeEventListener(EVENTS.RESET_UPLOAD_IMAGE, cleanImage)
 		}
 	}, [])
+
+	useEffect(() => {
+		setImage(img)
+	}, [img])
 
 	return (
 		<div className="w-full h-[200px] border-2 border-pink-600 p-4 relative rounded-md flex justify-center items-center">

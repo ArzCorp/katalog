@@ -8,8 +8,10 @@ import { useRouter } from 'next/router'
 
 export default function UserCatalogPage() {
 	const { isReady, query } = useRouter()
-	const { products } = useProducts(query.user)
 	const { isAuth } = useAuth(query.user)
+	const { products } = useProducts({
+		catalogName: query.user,
+	})
 
 	if (!isReady) return <p>Cargando...</p>
 

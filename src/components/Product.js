@@ -1,4 +1,7 @@
+import { useRouter } from 'next/router'
+
 export default function Product({
+	id,
 	price = 0,
 	isOwner,
 	description = 'Description here',
@@ -21,7 +24,9 @@ export default function Product({
 				/>
 			</picture>
 			<section className="text-center px-1">
-				<h2 className="font-bold text-base">{name}</h2>
+				<h2 className="font-bold text-base" onClick={editProduct}>
+					{name}
+				</h2>
 				<p className="font-bold text-pink-600">${price}</p>
 			</section>
 		</article>
