@@ -9,6 +9,7 @@ export const useProducts = ({ catalogName, productId } = {}) => {
 	const { getImageUrl } = useImage()
 	const [product, setProduct] = useState({})
 	const [products, setProducts] = useState([])
+	const [allProducts, setAllProducts] = useState([])
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(false)
 	const [success, setSuccess] = useState(EMPTY_STRING)
@@ -51,7 +52,8 @@ export const useProducts = ({ catalogName, productId } = {}) => {
 			if (response.error || !response.success)
 				throw new Error(ERRORS.GET_PRODUCTS)
 
-			setProducts(response.data)
+			setAllProducts(response.data.reverse())
+			setProducts(response.data.reverse())
 		} catch (error) {
 			setError(error.message)
 			setLoading(false)
@@ -117,6 +119,13 @@ export const useProducts = ({ catalogName, productId } = {}) => {
 		}
 	}
 
+	const filterProductsByName = (productName) => {
+		if(!productName) return getProducts(catalogName)
+
+		const filterProducts = allProducts.filter(product => product.name.toLowerCase().includes(productName.toLowerCase()))
+		setProducts(filterProducts);
+	}
+
 	useEffect(() => {
 		if (catalogName) getProducts(catalogName)
 		if (productId) getProduct(productId)
@@ -132,5 +141,6 @@ export const useProducts = ({ catalogName, productId } = {}) => {
 		editProduct,
 		cleanMessages,
 		deleteProduct,
+		filterProductsByName
 	}
 }
