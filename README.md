@@ -1,3 +1,6 @@
+# Katalog web app
+This is a web application to create a product catalogue, which can help you to sell and manage your own store
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
