@@ -5,142 +5,145 @@ import { useUser } from './useUser'
 import { ERRORS, EMPTY_STRING } from '@/utils/constants'
 
 export const useProducts = ({ catalogName, productId } = {}) => {
-	const { user } = useUser()
-	const { getImageUrl } = useImage()
-	const [product, setProduct] = useState({})
-	const [products, setProducts] = useState([])
-	const [allProducts, setAllProducts] = useState([])
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(false)
-	const [success, setSuccess] = useState(EMPTY_STRING)
+  const { user } = useUser()
+  const { getImageUrl } = useImage()
+  const [product, setProduct] = useState({})
+  const [products, setProducts] = useState([])
+  const [allProducts, setAllProducts] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(EMPTY_STRING)
 
-	const addProduct = async (productData, callback) => {
-		try {
-			setLoading(true)
-			cleanMessages()
+  const addProduct = async (productData, callback) => {
+    try {
+      setLoading(true)
+      cleanMessages()
 
-			const image = await getImageUrl(productData.image)
-			if (!image) throw new Error(ERRORS.ADD_PRODUCT)
+      const image = await getImageUrl(productData.image)
+      if (!image) throw new Error(ERRORS.ADD_PRODUCT)
 
-			const response = await request({
-				endpoint: 'products',
-				method: 'POST',
-				body: { ...productData, image, user_id: user.id },
-			})
-			if (response.error) throw new Error(response.message)
+      const response = await request({
+        endpoint: 'products',
+        method: 'POST',
+        body: { ...productData, image, user_id: user.id },
+      })
+      if (response.error) throw new Error(response.message)
 
-			setSuccess(response.message)
-			setLoading(false)
-			if (callback) return callback()
-		} catch (error) {
-			setError(error.message)
-			setLoading(false)
-		}
-	}
+      setSuccess(response.message)
+      if (callback) return callback()
+    } catch (error) {
+      setError(error.message)
+    }
 
-	const getProducts = async (catalogName) => {
-		try {
-			setLoading(true)
-			setError(EMPTY_STRING)
-			setSuccess(EMPTY_STRING)
+    setLoading(false)
+  }
 
-			const response = await request({
-				endpoint: `products/${catalogName}`,
-				method: 'GET',
-			})
+  const getProducts = async (catalogName) => {
+    try {
+      setLoading(true)
+      setError(EMPTY_STRING)
+      setSuccess(EMPTY_STRING)
 
-			if (response.error || !response.success)
-				throw new Error(ERRORS.GET_PRODUCTS)
+      const response = await request({
+        endpoint: `products/${catalogName}`,
+        method: 'GET',
+      })
 
-			setAllProducts(response.data.reverse())
-			setProducts(response.data.reverse())
-		} catch (error) {
-			setError(error.message)
-			setLoading(false)
-		}
-	}
+      if (response.error || !response.success)
+        throw new Error(ERRORS.GET_PRODUCTS)
 
-	const cleanMessages = () => {
-		setError(EMPTY_STRING)
-		setSuccess(EMPTY_STRING)
-	}
+      setAllProducts(response.data.reverse())
+      setProducts(response.data.reverse())
+    } catch (error) {
+      setError(error.message)
+    }
 
-	const deleteProduct = async (productId, callback) => {
-		cleanMessages()
-		const response = await request({
-			endpoint: `products/${productId}`,
-			method: 'DELETE',
-		})
+    setLoading(false)
+  }
 
-		if (response.success) setSuccess(response.message)
+  const cleanMessages = () => {
+    setError(EMPTY_STRING)
+    setSuccess(EMPTY_STRING)
+  }
 
-		setError(response.error)
+  const deleteProduct = async (productId, callback) => {
+    cleanMessages()
+    const response = await request({
+      endpoint: `products/${productId}`,
+      method: 'DELETE',
+    })
 
-		if (callback) callback()
-	}
+    if (response.success) setSuccess(response.message)
 
-	const getProduct = async (productId) => {
-		try {
-			setError(false)
-			setSuccess(false)
+    setError(response.error)
 
-			const response = await request({
-				endpoint: `product/${productId}`,
-				method: 'GET',
-			})
-			if (response.success) {
-				setProduct(response.data)
-			}
-		} catch (error) {
-			setError(error.message)
-		}
-	}
+    if (callback) callback()
+  }
 
-	const editProduct = async (productData) => {
-		let image
-		if (typeof productData.image != 'string') {
-			image = await getImageUrl(productData.image)
-			if (!image) throw new Error(ERRORS.UPDATE_PRODUCT)
-		} else {
-			image = product.image
-		}
+  const getProduct = async (productId) => {
+    try {
+      setError(false)
+      setSuccess(false)
 
-		cleanMessages()
-		const response = await request({
-			body: { ...productData, image },
-			method: 'POST',
-			endpoint: 'product/update',
-		})
+      const response = await request({
+        endpoint: `product/${productId}`,
+        method: 'GET',
+      })
+      if (response.success) {
+        setProduct(response.data)
+      }
+    } catch (error) {
+      setError(error.message)
+    }
+  }
 
-		if (response.success) {
-			setSuccess(response.message)
-		} else {
-			setError(response.message)
-		}
-	}
+  const editProduct = async (productData) => {
+    let image
+    if (typeof productData.image != 'string') {
+      image = await getImageUrl(productData.image)
+      if (!image) throw new Error(ERRORS.UPDATE_PRODUCT)
+    } else {
+      image = product.image
+    }
 
-	const filterProductsByName = (productName) => {
-		if(!productName) return getProducts(catalogName)
+    cleanMessages()
+    const response = await request({
+      body: { ...productData, image },
+      method: 'POST',
+      endpoint: 'product/update',
+    })
 
-		const filterProducts = allProducts.filter(product => product.name.toLowerCase().includes(productName.toLowerCase()))
-		setProducts(filterProducts);
-	}
+    if (response.success) {
+      setSuccess(response.message)
+    } else {
+      setError(response.message)
+    }
+  }
 
-	useEffect(() => {
-		if (catalogName) getProducts(catalogName)
-		if (productId) getProduct(productId)
-	}, [catalogName, productId])
+  const filterProductsByName = (productName) => {
+    if (!productName) return getProducts(catalogName)
 
-	return {
-		loading,
-		error,
-		success,
-		products,
-		product,
-		addProduct,
-		editProduct,
-		cleanMessages,
-		deleteProduct,
-		filterProductsByName
-	}
+    const filterProducts = allProducts.filter((product) =>
+      product.name.toLowerCase().includes(productName.toLowerCase())
+    )
+    setProducts(filterProducts)
+  }
+
+  useEffect(() => {
+    if (catalogName) getProducts(catalogName)
+    if (productId) getProduct(productId)
+  }, [catalogName, productId])
+
+  return {
+    loading,
+    error,
+    success,
+    products,
+    product,
+    addProduct,
+    editProduct,
+    cleanMessages,
+    deleteProduct,
+    filterProductsByName,
+  }
 }
