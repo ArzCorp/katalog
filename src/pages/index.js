@@ -10,7 +10,7 @@ export default function Home() {
   const { user, loading } = useUser()
 
   useEffect(() => {
-    console.log('Version 🔖v1.1.0')
+    console.log('Version 🔖v1.3.0')
   }, [])
 
   if (loading) return <Loading />
