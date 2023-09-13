@@ -1,7 +1,7 @@
 export const FORM_INITIAL_VALUES = Object.freeze({
   REGISTER: {
     name: '',
-    lastName: '',
+    lastname: '',
     email: '',
     catalogName: '',
     password: '',
